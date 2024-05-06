@@ -44,7 +44,32 @@ class DataCrud {
   Future<List<Map<String, dynamic>>> getRecords() async {
     return await _db.query('records');
   }
+  // Function to create all necessary tables during database initialization
+  void _createTables(Database db) {
+    // Create Person and Campaign tables (or any other models)
+    db.execute(
+      'CREATE TABLE IF NOT EXISTS person(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, city TEXT, age INTEGER)',
+    );
+    db.execute(
+      'CREATE TABLE IF NOT EXISTS campaign(id INTEGER PRIMARY KEY AUTOINCREMENT, fld1 TEXT, fld2 TEXT, fld3 TEXT, fld4 TEXT)',
+    );
+  }
 
+  /// Generic method to insert a record into a table
+  Future<void> insertRecord<T>(String tableName, T data) async {
+    // Handle potential for auto-increment ID (requires `getNextID` implementation)
+    // For now, assuming data doesn't require an auto-increment ID
+    final fields = data.toString().split(', '); // Extract field names
+    final values = List.generate(fields.length, (i) => data[fields[i]]); // Extract values
+
+    final insertSql = 'INSERT INTO $tableName ('
+        '${fields.join(', ')}' // Comma-separated field names
+        ') VALUES ('
+        '${values.map((v) => "'$v'").join(', ')}' // Comma-separated quoted values
+        ')';
+
+    await _db.execute(insertSql);
+  }
   Future<void> deleteRecord(int id) async {
     await _db.delete(
       'records',
