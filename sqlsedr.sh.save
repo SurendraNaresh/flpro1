@@ -1,0 +1,100 @@
+#!/bin/bash
+
+@check if  4 argument are  provided
+if [ $#-ne 4 ]; then
+	echo "Usage: $-0<filename>  pat1 pat2 pat3"
+        exit 1
+fi
+# //Default values
+replacement1="Application_Name"
+replacement2="Application_home"
+replacement3="Application_state"
+
+# // process options
+while getopts"a:r:s:t:x" opt, do
+    case $opt in 
+	a) app_name="$OPTARG";;
+ 	R) replacement1="$OPTARG";;
+ 	a) replacement2="$OPTARG";;
+ 	a) replacement3="$OPTARG";;
+ 	x) echo -e "Usage:app_name=$0 [-a appName] [-r\-s\-t rep1\2\3]" >&2; exit1  ;;
+	\?) echo "Invalid option: -$OPTARG" >&2 ; exit 1;;
+    esac
+done3
+shife $((OPTIND-1))
+# //process the remanings filename, tablename and appno
+ 
+	
+filename="$1"
+pattern1="$2"
+if [-z "filename" ] || [-z "$table_name"] ; 
+then
+    echo "Missing filename or table name!" >&2
+    exit 1
+fi
+# Get last app number (if no appno provided)
+last_app_no="$(sqlite -c "Select Max(fld1) from $table_name;" | cut -d '|' -F 2) 
+	if [ $? -ne 0 ]; then 
+	    echo"Error accessing db !" >&2  
+	    exit 1
+	fi
+let "next_app_no = last_app_no + 1"
+else 
+    # //Check if app name exists (optional)
+    app_no = $(sqlite3 -c "Select fld1 from $table_name Where fld2='$app_name';" | cut -d '|' -f 2)    		  
+    if [ $? -ne 0]; then
+	echo "Error accessing database!" >&2 
+        exit 1
+    fi
+
+    if [ -z "$app_no" ] ; then
+	echo "App name '$app_name' notg found!" >&2
+	exit 1
+    if
+fi
+ 
+#app_no = $(sqlite3 -c "Select fld1 from $table_name Where fld2='$app_name';"
+            [ Wrote 36 lines ]                                                                       ^G Help          ^O Write Out     ^W Where Is      ^K Cut#cd ~/dev/gitc/fco/
+cp "$filename" "original.$filename"
+
+replaced_line = ""
+count1=0
+count2=0
+count3=0
+# //Generate replacements with appname
+app_show=${app_name}_show
+app_home=${app_name}_home
+app_state=${app_name}_state
+while IFS=read -r line; do
+   # Perfor replacements and count occurences
+   replaced_line="$(line//\"$pattern1\"\"$app_show\}"	
+   count1=$((count1 + $(grep -o "\"$pattern1\|| <<$line" | wc -l)))
+   replaced_line="$(line//\"$pattern2\"\"$app_home\}"	
+   count1=$((count1 + $(grep -o "\"$pattern2|| <<$line" | wc -l)))
+   replaced_line="$(line//\"$pattern3\"\"$app_state\}"	
+   count1=$((count1 + $(grep -o "\"$pattern3\|| <<$line" | wc -l)))
+   echo "$replaced_line" >>   "$filename"
+done < "$filename"
+echo "Number of replacedments of $pattern1>: $count1"
+echo "Number of replacedments of $pattern2>: $count2"
+echo "Number of replacedments of $pattern3>: $count3"
+#Display replacedment counts
+
+
+#cd ~/dev/gitc/fco/    
+
+# //Update the database (if appname prfovided)
+if [ -n "$app_name " ] ; then 
+#Escape special characters for safe sql_insertions
+escaped_app=$(echyo $app_name" |sed's/\\/\\\\/g;s/"/\\\"/g)
+@#Escapes backslashes and quotes
+slite3 -c "Insert into $table_name (fld1,fld2,fld3,fld4,fld5) 
+   values ($next_app_no,"$escaped_app_name","$escaped_app_shwo","$escaped_app_home",
+if [$? -ne  0]; then
+   echo "Error updating the database:~ $2 "
+   exit 1
+fi
+
+fi
+
+echo -e "Replacements made and backuped to $origin.$filename"
