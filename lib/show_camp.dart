@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'LoggerWidget.dart';
 import 'VoteSaveSubmit.dart';
 import 'datacrud.dart';
+import 'CampaignChoice.dart';
 
 class ShowSignatureApp extends StatelessWidget {
   @override
@@ -118,7 +119,8 @@ class _SignatureCampaignAppState extends State<SignatureCampaignApp> {
                 });
               },
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 36.0),
+            
             DropdownButtonFormField(
               value: vote,
               onChanged: (value) {
@@ -126,13 +128,11 @@ class _SignatureCampaignAppState extends State<SignatureCampaignApp> {
                   vote = value.toString();
                 });
               },
-              items: [
-                DropdownMenuItem(value: 'Yes', child: Text('Yes (pro) vote')),
-                DropdownMenuItem(value: 'No', child: Text('Against vote')),
-                DropdownMenuItem(value: 'Abstain', child: Text('Abstain vote')),
-              ],
+              
+              items: ChoiceButton.createChoiceButtons(['Yes','No','Abstain']),
+              
               decoration: InputDecoration(
-                labelText: 'Vote',
+                labelText: 'MySolemnVote',
               ),
             ),
             SizedBox(height: 16.0),
