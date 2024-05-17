@@ -43,10 +43,11 @@ class ChoiceButton extends StatefulWidget {
     return values.map((value) => DropdownMenuItem<String>(
       value: value,
       child: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 5.0, bottom:16),
         decoration: BoxDecoration(
           color: getColor(value),
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(10.0),
+          //border: Border(right: BorderSide(width:20)),
         ),
         child: Row(
           children: [
