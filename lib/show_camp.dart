@@ -5,10 +5,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'LoggerWidget.dart';
 import 'VoteSaveSubmit.dart';
-import 'datacrud.dart';
+import 'datacrud_web.dart';
 import 'CampaignChoice.dart';
-
-
 
 
 class ShowSignatureApp extends StatelessWidget {
@@ -122,7 +120,7 @@ class _SignatureCampaignAppState extends State<SignatureCampaignApp> {
                 });
               },
             ),
-            SizedBox(height: 16.0),
+            SizedBox(width: 70, height: 30.0),
             DropdownButtonFormField(
               value: vote,
               onChanged: (value) {

@@ -1,5 +1,4 @@
-import 'dart:svg';
-
+//import 'dart:svg';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,6 +10,7 @@ class myWidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Navigating using push-MaterialPageRoute',
       home: ShowWidgetPage(),
     );
@@ -27,6 +27,7 @@ class ShowWidgetPage extends myWidgetPage {
         title: Text(title),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,17 +40,17 @@ class ShowWidgetPage extends myWidgetPage {
               },
             ),
             Row(
-               //mainAxisAlignment: MainAxisAlignment.evenlySpaced,
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Column(
           		children: [
             		Icon(Icons.forward, size: 33),
-            		Text('+3+', style: TextStyle(color: Colors.red, fontSize: 33)),
+            		Text('ThirdItem', style: TextStyle(color: Colors.red, fontSize: 33)),
           		],),
            	  Column(
               children: [
-            		Icon(Icons.star, size: 33),
-            		Text('+4+', style: TextStyle(color: Colors.yellow, fontSize: 33)),
+            		Icon(Icons.file_download, size: 33),
+            		Text('FourthItem', style: TextStyle(color: Colors.yellow, fontSize: 33)),
           		],),
               Column(
           		children: [

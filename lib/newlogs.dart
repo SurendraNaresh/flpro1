@@ -48,8 +48,8 @@ class Logger {
   }
 
   Future<void> writeLog() async {
-    final appDir = await getApplicationDocumentsDirectory();
-    final logPath =  appDir.path + '/$logFile';
+    final appDir = './ddir';  // await getApplicationDocumentsDirectory();
+    final logPath =  '$appDir/$logFile';
 	//print('The logfilePath : ${logPath}');
 	// avoid Log-Creation Issues :>> by calling stop() method 
 	(upTime ?? -99 ) < -1 ? stop() : 0; 
@@ -65,10 +65,10 @@ class Logger {
 			  otherData,
 			];
 			List<String> dataStrings = data.map((value) => value.toString()).toList();
-			await File(logPath).writeAsString(dataStrings.join(',') + '\n', mode: FileMode.append);
+			await File(logPath).writeAsString(dataStrings.join(","), mode: FileMode.append);
 	}	
 	else {
-		print('Check Log-Creation Issues in ${appDir.path}'); 
+		print('Check Log-Creation Issues in $logPath'); 
 	}
   }
 }
@@ -79,4 +79,5 @@ void main() async {
   logger.stop();
   await logger.writeLog();
   print('Log written successfully.');
+  
 }

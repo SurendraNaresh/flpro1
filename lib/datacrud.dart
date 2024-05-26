@@ -1,5 +1,6 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 //import 'dart:indexed_db';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:flutter/foundation.dart';
@@ -17,13 +18,19 @@ class DataCrud {
   late Logger? vlog = Logger("datacrud",'./dbLog.csv');
 
  DataCrud() {
+    var path = './ddir/';
     // Initialize sqflite ffi database factory
     if (Platform.isLinux || Platform.isWindows){
       vlog?.addData("dbInfo", "Started Logging @:${appDocumentsDir}" + '/dbLog.csv');
       vlog?.writeLog();
       sqfliteFfiInit();
     }  
-    databaseFactory = databaseFactoryFfi;
+    if (kIsWeb) {
+      // Change default factory on the web
+      databaseFactory = databaseFactoryFfiWeb;
+      path = './campaign_db.db';
+    }
+    else { databaseFactory = databaseFactoryFfi; }
   
   }
   /// Getter method to access the database instance (_db)
@@ -146,13 +153,12 @@ class Person {
 void main() async{
   List<Person> pList = [];
     pList.add(Person.fromJson({"info":{"Name":"Paul Dunkirk", "City":"Bangalore","Age": 45}}));
-//  pList.add(Person.fromJson({"info":{"Name":"Brad Simcox", "City":"Ontaria", "Age": 23}}));
-//  pList.add(Person.fromJson({"info":{"Name":"Manoj Damodar" "Pauline", "City":"Gwalior", "Age":34}}));
-  pList.add(Person.fromJson({"info":{"Name":"Rebecca Pauline", "City":"Nevada", "Age": 32}}));
+    pList.add(Person.fromJson({"info":{"Name":"Brad Simcox", "City":"Ontario", "Age": 26}}));
+    pList.add(Person.fromJson({"info":{"Name":"Manoj Koshto", "City":"Gwalior", "Age":39}}));
+    pList.add(Person.fromJson({"info":{"Name":"Rebecca Pauline", "City":"Nevada", "Age": 32}}));
   try {
     final dataCrud = DataCrud();
     Database dd= await dataCrud.initDatabase();
-
     // Insert or replace the record in the database
     //pList.forEach((p) => dataCrud.insertRecord('infotab',p.info.toString()));
     print("Data saved to SQLite database");
