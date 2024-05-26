@@ -1,0 +1,57 @@
+[<<HouseAutcion]::
+PropInfo:>>
+Min_Application_Amt
+,Min_Bid_Amt
+,Owner_Detail>>
+..Min_Consideration,
+..Cutoff_Date
+Stage1:mou[nonbias: [A] + [b] tds (taxdeductions @source)]
+ nonrefundable:(upto) 5L
+ Stage2: (registration: amount min80)
+ Possesion (Considerations - (a) + (b))...
+>>]
+[<<VisitDetails]::{GatePass:id}
+ID:[PanCard:#masked]
+,Date
+,NoOfGuests
+,Queries_2resolve
+,Comments
+>>]
+[<<AuditInfoTrails]::
+Refund_policy:>>
+    //date_constraint:>>>20% after cutoff Date
+    //visit_constraint:>>>No_of_visits<3
+,Date
+,No_of_visits     
+>>]
+[<<AuditFeatures]::
+Call_logs
+QueryResolution_logs
+Dashboard_logs:>>
+>,logins,responses,Comments
+>,rebid_count,rebid_probability
+>,Amount_collected
+>,top_bid,top_buyer
+Report_logs:>>
+
+>>]
+[<<DeedExecution_Events]::
+AutionReportsDate:>
+Milestones_and_timeline:>
+Amt_Acct_Interest:>
+
+[<<Security_Settings]::
+>,User_Config
+>,App_Permissions
+>,Security_Reports
+>>]
+[<<Personal_Settings]::
+>,Mobile_Number
+>,Name
+>,Profession(#; Service|Prof|Bus|SS-pol)
+>,Mail-id
+>>]
+[<<MiscData_Management]::
+>,Achirving(#;Bkp_docketno|S3S_Bucketno|SHA256_NO)
+>,Payment(#; PPe_no,Gpay_no,Amz_no,..)
+>,Payment_Transfer_no(#;)
