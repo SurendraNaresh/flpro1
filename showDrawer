@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+class GreetingDrawer extends StatelessWidget {
+  final List<List<String>> greetings = [
+    ['textGreet1', 'Happy Birthday'],
+    ['textGreet2', 'Diwali Ki Shukamai'],
+    ['textGreet1', 'Naya Saal Mubarak'],
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView.builder(
+        itemCount: greetings.length,
+        itemBuilder: (context, index) {
+          final greeting = greetings[index];
+          return ListTile(
+            title: Text(greeting[0]),
+            onTap: () {
+              // Handle the tap event, e.g., display the greeting message
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(greeting[0]),
+                    content: Text(greeting[1]),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
